@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WBD | Sign up</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://js.recurly.com/v4/recurly.js"></script>
+</head>
+<body>
+  <header class="topbar"><div class="wordmark">WBD</div></header>
+
+  <main>
+    <!-- Step 1: Plans -->
+    <section id="step-plan" class="step active">
+      <h1>Choose your plan</h1>
+      <p class="sub">Stream your favourite series, films and live sport.</p>
+      <div id="plan-grid" class="plan-grid"></div>
+
+      <div class="addon">
+        <div>
+          <strong>Extra member</strong>
+          <p>Add a household member to your plan. £ prices shown are per member.</p>
+        </div>
+        <div class="qty">
+          <button type="button" id="qty-minus">−</button>
+          <span id="qty">0</span>
+          <button type="button" id="qty-plus">+</button>
+        </div>
+      </div>
+
+      <button class="primary" id="to-account">Continue</button>
+    </section>
+
+    <!-- Step 2: Account -->
+    <section id="step-account" class="step">
+      <h1>Create your account</h1>
+      <form id="account-form" class="card">
+        <label>Email address<input name="email" type="email" required /></label>
+        <label>Confirm email<input name="emailConfirm" type="email" required /></label>
+        <label>Password<input name="password" type="password" minlength="10" required /></label>
+        <label>First name<input name="firstName" required /></label>
+        <label>Last name<input name="lastName" required /></label>
+        <p class="err" id="account-err"></p>
+        <div class="row">
+          <button type="button" class="ghost" data-back="step-plan">Back</button>
+          <button class="primary" type="submit">Continue</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Step 3: Payment (tokenized with recurly.js) -->
+    <section id="step-payment" class="step">
+      <h1>Choose how to pay</h1>
+      <form id="payment-form" class="card">
+        <div class="field">
+          <label for="card-first">Name on card</label>
+          <input id="card-first" autocomplete="cc-given-name" />
+        </div>
+        <div class="field">
+          <label for="card-last">Last name on card</label>
+          <input id="card-last" autocomplete="cc-family-name" />
+        </div>
+        <div class="field">
+          <label>Card details</label>
+          <div id="card-element" class="recurly-element"></div>
+        </div>
+        <p class="err" id="payment-err"></p>
+        <div class="summary" id="summary"></div>
+        <div class="row">
+          <button type="button" class="ghost" data-back="step-account">Back</button>
+          <button class="primary" type="submit" id="pay-btn">Start subscription</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Step 4: Confirmation -->
+    <section id="step-confirm" class="step">
+      <h1>You're in.</h1>
+      <div class="card" id="confirm-body"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
