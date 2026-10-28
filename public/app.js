@@ -170,4 +170,24 @@ function renderConfirm(d) {
     </div>`;
 }
 
-init();
+async function init() {
+  try {
+    config = await (await fetch('/api/config')).json();
+  } catch (e) {
+    document.getElementById('plan-grid').textContent = 'Could not load plans.';
+    console.error('Failed to load /api/config', e);
+    return;
+  }
+
+  renderPlans();
+  bindEvents();
+
+  try {
+    recurly.configure({ publicKey: config.publicKey });
+    elementsInstance = recurly.Elements();
+    cardElement = elementsInstance.CardElement();
+    cardElement.attach('#card-element');
+  } catch (e) {
+    console.error('Recurly setup failed', e);
+  }
+}
